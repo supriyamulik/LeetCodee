@@ -11,29 +11,18 @@
  */
 class Solution {
 public:
-    int preIndex = 0;
-    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder, int inStart, int inEnd)
+    TreeNode* TreeForm(vector<int>& preorder, int &i, int bound)
     {
-        if(inStart > inEnd) return nullptr;
+        if(i == preorder.size() || preorder[i] > bound) return nullptr;
+        TreeNode* root = new TreeNode(preorder[i++]);
+        root->left = TreeForm(preorder, i, root->val);
+        root->right = TreeForm(preorder, i, bound);
 
-        TreeNode* root = new TreeNode(preorder[preIndex++]);
-
-        int inIndex = 0;
-        for(int i = inStart; i<=inEnd; i++)
-        {
-            if(inorder[i] == root->val)
-            {
-                inIndex = i;
-                break;
-            }
-        }
-                    root->left = buildTree(preorder, inorder, inStart, inIndex-1);
-            root->right = buildTree(preorder, inorder, inIndex+1, inEnd);
         return root;
     }
-    TreeNode* bstFromPreorder(vector<int>& preorder) {
-        vector<int> inorder = preorder;
-        sort(inorder.begin(), inorder.end());
-        return buildTree(preorder, inorder, 0, inorder.size() - 1);
+    TreeNode* bstFromPreorder(vector<int>& preorder) 
+    {
+       int i=0;
+       return TreeForm(preorder, i, INT_MAX);
     }
 };
