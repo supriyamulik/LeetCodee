@@ -23,10 +23,12 @@ public:
         inorder(root->left);
         if(prev!=NULL && root->val < prev->val)
         {
+            // taking the first voilation 
             if(first == NULL) {
                 first = prev;
                 middle = root;
             }
+            // if we already have the first voiltion here we got the second one 
             else{
                 last = root;
             }
@@ -37,8 +39,13 @@ public:
     void recoverTree(TreeNode* root) {
         first = middle = last = NULL;
         prev = new TreeNode(INT_MIN);
+
         inorder(root);
+
+        // case 1 when both of them are now adjecent
         if(first && last) swap(first->val , last->val);
+
+        // case 2 like when both re adjecent 
         else if(first && middle)
         {
             swap(first->val, middle->val);
