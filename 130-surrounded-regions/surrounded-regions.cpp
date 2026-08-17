@@ -2,6 +2,8 @@ class Solution {
 public:
     void solve(vector<vector<char>>& board) 
     {
+        // approach is to first traverse the boundary of the matrix and mark visited if any 0 at found while traversing the boundary push it into the queue now until the queu is empty pop it and look left right up down around that if any 0 fornd and not viisted previously then push it into the queue and mark it as visited after this step we will get all the boundary and boundary connected elemets that cannot be made X so now at last traverse again the matrix and make  all the 0 that re not viisted yet to X 
+        
         int m = board.size();
         int n = board[0].size();
 
