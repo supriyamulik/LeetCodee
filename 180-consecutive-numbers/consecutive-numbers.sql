@@ -1,0 +1,2 @@
+-- no thaat appear atlest 3 times consecutively
+select distinct num as ConsecutiveNums from( select num, LEAD(num, 1) OVER(ORDER BY id) as prev1, LAG(num, 1) over(order by id) as prev2 from logs) t where num=prev1 and num=prev2 ;
